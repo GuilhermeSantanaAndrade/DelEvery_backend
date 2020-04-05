@@ -1,0 +1,35 @@
+{
+  "name": "DelEvery_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node ./src/server.js",
+    "dev": "nodemon server.js",
+    "migrations_up": "knex migrate:latest",
+    "migrations_down": "knex migrate:rollback",
+    "migrations_status": "knex migrate:status"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GuilhermeSantanaAndrade/DelEvery_backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GuilhermeSantanaAndrade/DelEvery_backend/issues"
+  },
+  "homepage": "https://github.com/GuilhermeSantanaAndrade/DelEvery_backend#readme",
+  "dependencies": {
+    "celebrate": "^12.0.1",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "express": "^4.17.1",
+    "knex": "^0.20.13",
+    "sqlite3": "^4.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
