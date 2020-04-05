@@ -1,7 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("sales", (table) => {
     table.increments();
-    table.timestamps();
+    table.timestamps(true, true);
+    table.string("guid").notNullable();
     table.string("sale_number").notNullable();
     table.datetime("purchaseDateTime").notNullable();
     table.decimal("subtotal_value").defaultTo(0).notNullable();

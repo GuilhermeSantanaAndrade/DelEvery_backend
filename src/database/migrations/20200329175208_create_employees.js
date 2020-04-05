@@ -1,7 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("employees", (table) => {
     table.increments();
-    table.timestamps();
+    table.timestamps(true, true);
+    table.string("guid").notNullable();
     table.string("name").notNullable();
     table.string("employee_type").notNullable();
     table.string("employee_subtype").notNullable();

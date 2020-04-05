@@ -1,7 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("addresses", (table) => {
     table.increments();
-    table.timestamps();
+    table.timestamps(true, true);
+    table.string("guid").notNullable();
     table.string("cep").notNullable();
     table.string("street").notNullable();
     table.string("type");

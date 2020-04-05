@@ -1,7 +1,8 @@
 exports.up = function (knex) {
   return knex.schema.createTable("deliveries", (table) => {
     table.increments();
-    table.timestamps();
+    table.timestamps(true, true);
+    table.string("guid").notNullable();
     table.integer("status").notNullable();
     table.datetime("estimate_dateTime").notNullable();
     table.datetime("delivered_dateTime");

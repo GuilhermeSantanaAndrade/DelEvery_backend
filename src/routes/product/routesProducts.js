@@ -1,7 +1,10 @@
+const controllerProducts = require("../../controllers/controllerProducts");
 const routes = require("express").Router();
 
-routes.get("/", (req, res) => {
-  res.send("Products OK");
-});
+routes.get("/", controllerProducts.listAll);
+routes.get("/:guid", controllerProducts.listOne);
+routes.post("/", controllerProducts.create);
+routes.put("/:guid?", controllerProducts.update);
+routes.delete("/:guid?", controllerProducts.delete);
 
 module.exports = routes;
