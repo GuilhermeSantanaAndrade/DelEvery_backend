@@ -1,10 +1,12 @@
 const connection = require("../../database/connection");
-const uuidv4 = require("uuid/v4");
+//const uuidv4 = require("uuid/v4");
+const { v4 } = require("uuid");
 const {
   prepareSuccess200,
   throwError,
   throwRefuse401,
 } = require("../../helpers/responses_struct");
+const { dateToMoment } = require("../../helpers/functions");
 
 class controllerCompany {
   listAll = async (req, res) => {
@@ -33,9 +35,11 @@ class controllerCompany {
     try {
       let { name, description, phone } = req.body;
 
-      let guid = uuidv4();
+      let guid = v4();
 
       const [result] = await connection("companies").insert({
+        created_at: dateToMoment(new Date()),
+        updated_at: dateToMoment(new Date()),
         guid: guid,
         name: name,
         description: description,
@@ -80,17 +84,17 @@ class controllerCompany {
 
       const result = await connection("companies")
         .update({
-          guid,
-          id,
-          name,
-          description,
-          phone,
+          updated_at: dateToMoment(new Date()),
+          guid: guid,
+          name: name,
+          description: description,
+          phone: phone,
         })
         .where(where);
 
       res.json(
         prepareSuccess200({
-          id: result,
+          updatedRecs: result,
           guid: guid,
         })
       );
@@ -128,7 +132,7 @@ class controllerCompany {
 
       res.json(
         prepareSuccess200({
-          id: result,
+          deletedRecs: result,
           guid: guid,
         })
       );

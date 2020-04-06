@@ -6,12 +6,12 @@ const {
   throwError,
   throwRefuse401,
 } = require("../../helpers/responses_struct");
-const { dateToMoment } = require("../../helpers/functions");
+const { dateToMoment, inputDateToMoment } = require("../../helpers/functions");
 
-class controllerProduct {
+class controllerCustomer {
   listAll = async (req, res) => {
     try {
-      const result = await connection("products").select("*");
+      const result = await connection("customers").select("*");
       res.json(prepareSuccess200(result));
     } catch (error) {
       throwError(res, error);
@@ -22,7 +22,7 @@ class controllerProduct {
     try {
       let { guid } = req.params;
 
-      const result = await connection("products")
+      const result = await connection("customers")
         .select("*")
         .where({ guid: guid });
       res.json(prepareSuccess200(result));
@@ -33,31 +33,20 @@ class controllerProduct {
 
   create = async (req, res) => {
     try {
-      let {
-        name,
-        description,
-        external_description,
-        price,
-        tipo,
-        peso,
-        altura,
-        largura,
-      } = req.body;
+      let { name, birthday, email, password, cel, whatsapp } = req.body;
 
       let guid = v4();
 
-      const [result] = await connection("products").insert({
+      const [result] = await connection("customers").insert({
         created_at: dateToMoment(new Date()),
         updated_at: dateToMoment(new Date()),
         guid: guid,
         name: name,
-        description: description,
-        external_description: external_description,
-        price: price,
-        tipo: tipo,
-        peso: peso,
-        altura: altura,
-        largura: largura,
+        birthday: inputDateToMoment(birthday),
+        email: email,
+        password: password,
+        cel: cel,
+        whatsapp: whatsapp,
       });
 
       res.json(
@@ -73,18 +62,7 @@ class controllerProduct {
 
   update = async (req, res) => {
     try {
-      let {
-        id,
-        guid,
-        name,
-        description,
-        external_description,
-        price,
-        tipo,
-        peso,
-        altura,
-        largura,
-      } = req.body;
+      let { id, guid, name, birthday, cel, whatsapp } = req.body;
 
       if (!guid && req.params) {
         guid = req.params.guid;
@@ -107,17 +85,14 @@ class controllerProduct {
         };
       }
 
-      const result = await connection("products")
+      const result = await connection("customers")
         .update({
           updated_at: dateToMoment(new Date()),
+          guid: guid,
           name: name,
-          description: description,
-          external_description: external_description,
-          price: price,
-          tipo: tipo,
-          peso: peso,
-          altura: altura,
-          largura: largura,
+          birthday: inputDateToMoment(birthday),
+          cel: cel,
+          whatsapp: whatsapp,
         })
         .where(where);
 
@@ -157,7 +132,7 @@ class controllerProduct {
         };
       }
 
-      const result = await connection("products").delete().where(where);
+      const result = await connection("customers").delete().where(where);
 
       res.json(
         prepareSuccess200({
@@ -171,4 +146,4 @@ class controllerProduct {
   };
 }
 
-module.exports = new controllerProduct();
+module.exports = new controllerCustomer();
