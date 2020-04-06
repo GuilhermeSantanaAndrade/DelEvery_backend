@@ -1,10 +1,10 @@
-const connection = require("../database/connection");
+const connection = require("../../database/connection");
 const uuidv4 = require("uuid/v4");
 const {
   prepareSuccess200,
   throwError,
   throwRefuse401,
-} = require("../helpers/responses_struct");
+} = require("../../helpers/responses_struct");
 
 class controllerProduct {
   listAll = async (req, res) => {
@@ -18,7 +18,7 @@ class controllerProduct {
 
   listOne = async (req, res) => {
     try {
-      let { guid } = body.params;
+      let { guid } = req.params;
 
       const result = await connection("products")
         .select("*")

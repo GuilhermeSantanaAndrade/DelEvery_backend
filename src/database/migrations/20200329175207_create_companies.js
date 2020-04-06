@@ -6,7 +6,7 @@ exports.up = function (knex) {
     table.string("name").notNullable();
     table.string("description").notNullable();
     table.string("phone");
-    table.string("main_image").notNullable();
+    table.string("main_image");
   });
 };
 

@@ -1,4 +1,4 @@
-const controllerProducts = require("../../controllers/controllerProducts");
+const controllerProducts = require("../../controllers/product/controllerProducts");
 const routes = require("express").Router();
 
 routes.get("/", controllerProducts.listAll);
